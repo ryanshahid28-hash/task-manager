@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <style>
+button {
+  background-color: #4285F4; /* Vibrant Blue */
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 10px 30px;
+  border: 2px solid black;
+  cursor: pointer;
+  /* The sharp shadow from your image */
+  box-shadow: 5px 5px 0px 0px black; 
+}
+
+button:active {
+  box-shadow: 0px 0px 0px 0px black;
+  transform: translate(5px, 5px);
+}
+</style>
+    
+</body>
+</html>
+
+
+<input type="text" id="taskInput" placeholder="New Task...">
+<button onclick="addTask()">ADD</button>
+<ul id="taskList"></ul>
+
+<script>
+    let tasks = []; // Module II: Array
+
+function render() {
+  const list = document.getElementById('taskList');
+  list.innerHTML = ""; // Clear list
+  
+  tasks.forEach((task, index) => {
+    let li = document.createElement('li');
+    li.innerHTML = `${task} <button onclick="deleteTask(${index})" style="font-size:12px; padding:5px; margin-left:10px;">X</button>`;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  let val = document.getElementById('taskInput').value;
+  if(val) {
+    tasks.push(val); // Add to Array
+    document.getElementById('taskInput').value = "";
+    render();
+  }
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1); // Remove from Array
+  render();
+}
+
+render();       
+</script>
