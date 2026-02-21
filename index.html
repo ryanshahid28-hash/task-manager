@@ -6,61 +6,137 @@
     <title>Document</title>
 </head>
 <body>
- <style>
-button {
-  background-color: #4285F4; /* Vibrant Blue */
-  color: white;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  padding: 10px 30px;
-  border: 2px solid black;
-  cursor: pointer;
-  /* The sharp shadow from your image */
-  box-shadow: 5px 5px 0px 0px black; 
-}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-button:active {
-  box-shadow: 0px 0px 0px 0px black;
-  transform: translate(5px, 5px);
-}
-</style>
-    
+        .container {
+            background-color: white;
+            border: 3px solid black;
+            box-shadow: 8px 8px 0px 0px black;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 3px solid black;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 2px solid black;
+            font-size: 16px;
+            font-weight: bold;
+            outline: none;
+            box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background-color: #4285F4; /* Vibrant Blue */
+            color: white;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: 2px solid black;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px 0px black;
+            transition: all 0.1s;
+        }
+
+        button:active {
+            box-shadow: 0px 0px 0px 0px black;
+            transform: translate(4px, 4px);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fffbe6; /* Light yellow highlight */
+            border: 2px solid black;
+            margin-bottom: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 3px 3px 0px 0px black;
+            font-weight: 500;
+        }
+
+        .delete-btn {
+            background-color: #ff4757;
+            font-size: 12px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            box-shadow: 2px 2px 0px 0px black;
+        }
+        
+        .delete-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Todo List</h1>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="New Task...">
+            <button onclick="addTask()">ADD</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        let tasks = []; // Module II: Array
+
+        function render() {
+            const list = document.getElementById('taskList');
+            list.innerHTML = ""; // Clear list
+            
+            tasks.forEach((task, index) => {
+                let li = document.createElement('li');
+                li.innerHTML = `${task} <button class="delete-btn" onclick="deleteTask(${index})">X</button>`;
+                list.appendChild(li);
+            });
+        }
+
+        function addTask() {
+            let val = document.getElementById('taskInput').value;
+            if(val) {
+                tasks.push(val); // Add to Array
+                document.getElementById('taskInput').value = "";
+                render();
+            }
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1); // Remove from Array
+            render();
+        }
+
+        render();       
+    </script>
 </body>
 </html>
-
-
-<input type="text" id="taskInput" placeholder="New Task...">
-<button onclick="addTask()">ADD</button>
-<ul id="taskList"></ul>
-
-<script>
-    let tasks = []; // Module II: Array
-
-function render() {
-  const list = document.getElementById('taskList');
-  list.innerHTML = ""; // Clear list
-  
-  tasks.forEach((task, index) => {
-    let li = document.createElement('li');
-    li.innerHTML = `${task} <button onclick="deleteTask(${index})" style="font-size:12px; padding:5px; margin-left:10px;">X</button>`;
-    list.appendChild(li);
-  });
-}
-
-function addTask() {
-  let val = document.getElementById('taskInput').value;
-  if(val) {
-    tasks.push(val); // Add to Array
-    document.getElementById('taskInput').value = "";
-    render();
-  }
-}
-
-function deleteTask(index) {
-  tasks.splice(index, 1); // Remove from Array
-  render();
-}
-
-render();       
-</script>
